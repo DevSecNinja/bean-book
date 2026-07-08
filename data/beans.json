@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-07-08T08:56:24.054Z",
+  "buildId": "__BUILD_ID__",
+  "beanCount": 2,
+  "reviewCount": 2,
+  "beans": [
+    {
+      "slug": "wakuli-de-parade-x-wakuli-blend",
+      "key": "wakuli␟de parade x wakuli blend",
+      "name": "De Parade x Wakuli Blend",
+      "roaster": "Wakuli",
+      "averageRating": 3.5,
+      "reviewCount": 1,
+      "facts": {
+        "roastType": "Omni (Filter & Espresso)",
+        "roastLevel": "Medium",
+        "blend": "Blend",
+        "decaf": false,
+        "organic": false,
+        "species": "Arabica",
+        "process": "Natural",
+        "variety": null,
+        "origins": [
+          "Guatemala",
+          "Honduras",
+          "Brazil"
+        ],
+        "website": "https://www.wakuli.com/products/parade-wakuli-blend",
+        "roastDate": null,
+        "currency": {
+          "code": "EUR",
+          "symbol": "€"
+        },
+        "cost": 12.9,
+        "weightGrams": 225
+      },
+      "flavours": [
+        "Berry"
+      ],
+      "reviews": [
+        {
+          "id": 2,
+          "url": "https://github.com/DevSecNinja/bean-book/issues/2",
+          "submittedAt": "2026-07-08T08:19:43Z",
+          "author": {
+            "login": "DevSecNinja",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/14926452?v=4",
+            "profileUrl": "https://github.com/DevSecNinja"
+          },
+          "name": "De Parade x Wakuli Blend",
+          "roaster": "Wakuli",
+          "roastType": "Omni (Filter & Espresso)",
+          "roastLevel": "Medium",
+          "blend": "Blend",
+          "rating": 3.5,
+          "decaf": false,
+          "organic": false,
+          "roastDate": null,
+          "origins": [
+            "Guatemala",
+            "Honduras",
+            "Brazil"
+          ],
+          "process": "Natural",
+          "species": "Arabica",
+          "variety": null,
+          "currency": {
+            "code": "EUR",
+            "symbol": "€"
+          },
+          "cost": 12.9,
+          "weightGrams": 225,
+          "flavours": [
+            "Berry"
+          ],
+          "brewMethod": "V60 / Pour-over",
+          "website": "https://www.wakuli.com/products/parade-wakuli-blend",
+          "notes": "Very tasty with 1:16.0",
+          "buyAgain": true
+        }
+      ]
+    },
+    {
+      "slug": "simon-levelt-guji-highlands",
+      "key": "simon levelt␟guji highlands",
+      "name": "Guji Highlands",
+      "roaster": "Simon Lévelt",
+      "averageRating": 2.5,
+      "reviewCount": 1,
+      "facts": {
+        "roastType": "Filter",
+        "roastLevel": "Light",
+        "blend": "Blend",
+        "decaf": false,
+        "organic": true,
+        "species": "Arabica",
+        "process": null,
+        "variety": null,
+        "origins": [
+          "Ethiopia"
+        ],
+        "website": "https://www.simonlevelt.nl/nl/guji-highlands/17524-M.html",
+        "roastDate": null,
+        "currency": {
+          "code": "EUR",
+          "symbol": "€"
+        },
+        "cost": 11.5,
+        "weightGrams": 250
+      },
+      "flavours": [
+        "Fruity (stone / tropical)"
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "url": "https://github.com/DevSecNinja/bean-book/issues/1",
+          "submittedAt": "2026-07-08T08:07:05Z",
+          "author": {
+            "login": "DevSecNinja",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/14926452?v=4",
+            "profileUrl": "https://github.com/DevSecNinja"
+          },
+          "name": "Guji Highlands",
+          "roaster": "Simon Lévelt",
+          "roastType": "Filter",
+          "roastLevel": "Light",
+          "blend": "Blend",
+          "rating": 2.5,
+          "decaf": false,
+          "organic": true,
+          "roastDate": null,
+          "origins": [
+            "Ethiopia"
+          ],
+          "process": null,
+          "species": "Arabica",
+          "variety": null,
+          "currency": {
+            "code": "EUR",
+            "symbol": "€"
+          },
+          "cost": 11.5,
+          "weightGrams": 250,
+          "flavours": [
+            "Fruity (stone / tropical)"
+          ],
+          "brewMethod": "V60 / Pour-over",
+          "website": "https://www.simonlevelt.nl/nl/guji-highlands/17524-M.html",
+          "notes": "Tried 1:16.7 but flavor didn't really pop-out yet. Can definitely taste a light grapefruit taste.",
+          "buyAgain": false
+        }
+      ]
+    }
+  ]
+}
