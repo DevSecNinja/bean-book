@@ -61,7 +61,7 @@ jobs:
       - name: Assemble site directory
         run: |
           mkdir -p _site
-          cp -r index.html styles.css manifest.webmanifest service-worker.js \
+          cp -r index.html 404.html styles.css manifest.webmanifest service-worker.js \
             robots.txt sitemap.xml CNAME src data icons bean _site/
 
       - name: Upload Pages artifact
