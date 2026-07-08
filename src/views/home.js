@@ -36,7 +36,14 @@ function beanCard(bean) {
   );
 }
 
-function matches(bean, f) {
+export const PRICE_BANDS = [
+  { id: 'lt5', label: 'Under €5', min: 0, max: 5 },
+  { id: '5-7.5', label: '€5 – €7.50', min: 5, max: 7.5 },
+  { id: '7.5-10', label: '€7.50 – €10', min: 7.5, max: 10 },
+  { id: 'gt10', label: 'Over €10', min: 10, max: Infinity },
+];
+
+export function matches(bean, f) {
   if (f.q) {
     const hay = [
       bean.name, bean.roaster,
@@ -51,13 +58,18 @@ function matches(bean, f) {
   if (f.decaf && !bean.facts?.decaf) return false;
   if (f.organic && !bean.facts?.organic) return false;
   if (f.minRating && bean.averageRating < f.minRating) return false;
+  if (f.priceBand) {
+    const band = PRICE_BANDS.find((b) => b.id === f.priceBand);
+    const value = bean.valuePer100g?.value;
+    if (band == null || value == null || value < band.min || value >= band.max) return false;
+  }
   return true;
 }
 
 export function renderHome(root, data) {
   clear(root);
 
-  const filters = { q: '', roaster: '', roastType: '', blend: '', decaf: false, organic: false, minRating: 0 };
+  const filters = { q: '', roaster: '', roastType: '', blend: '', decaf: false, organic: false, minRating: 0, priceBand: '' };
 
   const grid = el('div', { class: 'grid', id: 'bean-grid' });
   const count = el('p', { class: 'result-count muted', 'aria-live': 'polite' });
@@ -103,6 +115,13 @@ export function renderHome(root, data) {
       el('select', { id: 'f-rating', onChange: (e) => { filters.minRating = Number(e.target.value); draw(); } },
         el('option', { value: '0', text: 'Any' }),
         [4, 3, 2].map((r) => el('option', { value: String(r), text: `${r}+ ★` })),
+      ),
+    ),
+    el('label', { class: 'field' },
+      el('span', { class: 'field-label', text: 'Price / 100g' }),
+      el('select', { id: 'f-price', onChange: (e) => { filters.priceBand = e.target.value; draw(); } },
+        el('option', { value: '', text: 'Any' }),
+        PRICE_BANDS.map((b) => el('option', { value: b.id, text: b.label })),
       ),
     ),
     el('div', { class: 'checks' },
