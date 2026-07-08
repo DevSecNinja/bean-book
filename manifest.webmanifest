@@ -10,8 +10,10 @@
   "theme_color": "#b5651d",
   "categories": ["food", "lifestyle"],
   "screenshots": [
-    { "src": "/icons/screenshot-wide.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Browse the coffee bean gallery" },
-    { "src": "/icons/screenshot-narrow.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow", "label": "Browse the coffee bean gallery" }
+    { "src": "/icons/screenshot-wide.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Browse the coffee bean gallery (light)" },
+    { "src": "/icons/screenshot-wide-dark.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Browse the coffee bean gallery (dark)" },
+    { "src": "/icons/screenshot-narrow.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow", "label": "Browse the coffee bean gallery (light)" },
+    { "src": "/icons/screenshot-narrow-dark.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow", "label": "Browse the coffee bean gallery (dark)" }
   ],
   "icons": [
     { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
