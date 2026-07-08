@@ -1,0 +1,294 @@
+name: ☕ Bean Review
+description: Log a coffee bean you've tried and give it a rating. It will show up on the Bean Book site.
+title: "[Bean]: <Roaster> – <Bean name>"
+labels:
+  - bean-review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Welcome to Bean Book ☕
+        Thanks for logging a coffee! Fill in what you know — only a handful of fields are required.
+        The **Additional info** at the bottom is optional but makes the entry much richer on the site.
+
+        > Tip: the more accurate the details (roaster, origin, process), the easier it is to compare beans later.
+
+  # ------------------------------------------------------------------
+  # The basics (required)
+  # ------------------------------------------------------------------
+  - type: markdown
+    attributes:
+      value: "### ☕ The basics"
+
+  - type: input
+    id: name
+    attributes:
+      label: Bean name
+      description: The name of the coffee as it appears on the bag.
+      placeholder: e.g. Ethiopia Guji, Colombia El Paraíso, House Espresso
+    validations:
+      required: true
+
+  - type: dropdown
+    id: roaster
+    attributes:
+      label: Roaster
+      description: >
+        Pick the roaster from the list. If it isn't listed, choose **Other (not listed)**
+        and fill in the "Roaster (if not listed)" field below.
+      options:
+        - Other (not listed)
+        - Manhattan Coffee Roasters
+        - Friedhats
+        - White Label Coffee
+        - Bocca Coffee
+        - Lot Sixty One
+        - The Barn
+        - Bonanza Coffee
+        - Coffee Collective
+        - La Cabra
+        - April Coffee
+        - Square Mile
+        - Tim Wendelboe
+        - Gardelli
+        - Sey Coffee
+        - Home / Self-roasted
+    validations:
+      required: true
+
+  - type: input
+    id: roaster_other
+    attributes:
+      label: Roaster (if not listed)
+      description: Only fill this in if you selected **Other (not listed)** above.
+      placeholder: e.g. My Local Roastery
+    validations:
+      required: false
+
+  - type: dropdown
+    id: roast_type
+    attributes:
+      label: Roast type
+      description: What the roast was intended for.
+      options:
+        - Filter
+        - Espresso
+        - Omni (Filter & Espresso)
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: blend
+    attributes:
+      label: Single origin or blend?
+      options:
+        - Single Origin
+        - Blend
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: rating
+    attributes:
+      label: Rating
+      description: Your overall score, from 1 to 5 in steps of 0.25.
+      options:
+        - "5.00 – Perfect"
+        - "4.75"
+        - "4.50"
+        - "4.25"
+        - "4.00 – Excellent"
+        - "3.75"
+        - "3.50"
+        - "3.25"
+        - "3.00 – Good"
+        - "2.75"
+        - "2.50"
+        - "2.25"
+        - "2.00 – OK"
+        - "1.75"
+        - "1.50"
+        - "1.25"
+        - "1.00 – Poor"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: decaf
+    attributes:
+      label: Decaffeinated
+      options:
+        - label: This is a decaf coffee
+          required: false
+
+  - type: input
+    id: roast_date
+    attributes:
+      label: Roast date
+      description: When the beans were roasted (optional). Use YYYY-MM-DD.
+      placeholder: e.g. 2026-06-15
+    validations:
+      required: false
+
+  # ------------------------------------------------------------------
+  # Origin & process (optional, but great for single origins)
+  # ------------------------------------------------------------------
+  - type: markdown
+    attributes:
+      value: "### 🌍 Origin & process (optional)"
+
+  - type: input
+    id: origin
+    attributes:
+      label: Origin
+      description: Country and, if known, region / farm / producer.
+      placeholder: e.g. Ethiopia, Guji – Shakiso, Layo Taraga
+    validations:
+      required: false
+
+  - type: dropdown
+    id: process
+    attributes:
+      label: Process
+      description: How the coffee cherry was processed.
+      options:
+        - Washed
+        - Natural
+        - Honey
+        - Anaerobic
+        - Carbonic Maceration
+        - Other
+        - Unknown
+    validations:
+      required: false
+
+  - type: input
+    id: variety
+    attributes:
+      label: Variety / cultivar
+      placeholder: e.g. Heirloom, Bourbon, Geisha, Caturra
+    validations:
+      required: false
+
+  # ------------------------------------------------------------------
+  # Additional info (optional)
+  # ------------------------------------------------------------------
+  - type: markdown
+    attributes:
+      value: "### 📋 Additional info (optional)"
+
+  - type: dropdown
+    id: currency
+    attributes:
+      label: Currency
+      description: Currency for the cost below. Defaults to EUR.
+      options:
+        - EUR (€)
+        - USD ($)
+        - GBP (£)
+        - CHF
+        - SEK
+        - DKK
+        - NOK
+        - JPY (¥)
+        - AUD
+        - CAD
+    validations:
+      required: false
+
+  - type: input
+    id: cost
+    attributes:
+      label: Cost
+      description: Price you paid for the bag (numbers only, in the currency selected above).
+      placeholder: e.g. 14.50
+    validations:
+      required: false
+
+  - type: input
+    id: weight
+    attributes:
+      label: Weight (grams)
+      description: Bag weight in grams.
+      placeholder: e.g. 250
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: flavour_profiles
+    attributes:
+      label: Flavour profiles
+      description: Tick the tasting notes that stood out most (pick the ones that apply).
+      options:
+        - label: Chocolate / Cocoa
+        - label: Nutty
+        - label: Caramel / Toffee
+        - label: Fruity (stone / tropical)
+        - label: Berry
+        - label: Citrus
+        - label: Floral
+        - label: Spicy
+        - label: Sweet / Sugary
+        - label: Earthy / Herbal
+
+  - type: dropdown
+    id: brew_method
+    attributes:
+      label: How did you brew it?
+      description: The method you used when tasting for this review.
+      options:
+        - Espresso
+        - V60 / Pour-over
+        - AeroPress
+        - French Press
+        - Moka Pot
+        - Filter (batch / drip)
+        - Cold Brew
+        - Other
+    validations:
+      required: false
+
+  - type: input
+    id: website
+    attributes:
+      label: Bean website
+      description: Link to the product page, so others can find it.
+      placeholder: https://...
+    validations:
+      required: false
+
+  - type: textarea
+    id: review_notes
+    attributes:
+      label: Review notes
+      description: Your free-form thoughts — aroma, taste, body, aftertaste, brew recipe, anything.
+      placeholder: Juicy and bright with notes of blueberry and jasmine. Best as a V60 at 1:16...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: buy_again
+    attributes:
+      label: Would you buy it again?
+      options:
+        - label: Yes, I'd buy this again
+          required: false
+
+  - type: textarea
+    id: photo
+    attributes:
+      label: Photo
+      description: Drag & drop a photo of the bag or your cup here (optional).
+      placeholder: Paste or drop an image...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      options:
+        - label: This is my own honest review and I'm okay with it appearing on the Bean Book site.
+          required: true
