@@ -35,6 +35,26 @@ Open a [Bean Review issue](../../issues/new?template=bean-review.yml) and fill i
 the form. Once it's reviewed and published by the maintainer, it shows up on the
 site.
 
+## Publishing, updating & removing reviews
+
+The build is **stateless**: every relevant event re-fetches *all* reviews that
+are **closed** and carry the **`published`** label, regenerates `data/beans.json`
+and redeploys. There is no "processed" marker to manage — `published` is simply
+the on/off gate.
+
+| I want to… | Do this | What happens |
+|------------|---------|--------------|
+| **Publish** a review | Close the issue with the `published` label (the maintainer does this; valid submissions from the repo owner are auto-published) | The `closed`/`labeled` event triggers a rebuild and the bean appears |
+| **Update** a published review | **Just edit the issue** (title or body). No need to reopen or touch labels | The `edited` event triggers a rebuild; the new content replaces the old on the next deploy |
+| **Unpublish** a review | Remove the `published` label, **or** reopen the issue | The `unlabeled`/`reopened` event rebuilds; the bean disappears (it no longer matches "closed + published") |
+
+Changes go live once the **CI/CD** run finishes (~1–2 min) and the CDN
+refreshes. A daily scheduled run and the manual **Run workflow** button are
+backstops if an event is ever missed.
+
+> Editing a published (closed) issue does **not** re-run the validation bot —
+> that only runs on `bean-review` issues that aren't published yet.
+
 ## Tech
 
 - Vanilla HTML + CSS + ES modules. **Zero runtime dependencies.**
