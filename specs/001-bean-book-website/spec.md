@@ -100,6 +100,10 @@ Confirm an unpublished issue does not appear in the built data.
 2. **Given** an open or unlabeled issue, **When** the site is built, **Then** that
    review is absent; **When** the issue is closed with `published`, **Then** it
    appears.
+3. **Given** a newly opened bean-review issue, **When** the validation workflow
+   runs, **Then** a comment reports whether it passed the schema (with fixes or
+   tidy-up warnings), and if the owner submitted a valid review it is
+   auto-published (labeled `published` and closed).
 
 ### Edge Cases
 
@@ -146,6 +150,13 @@ Confirm an unpublished issue does not appear in the built data.
 - **FR-011**: The pipeline MUST be a single combined CI/CD workflow that tests,
   builds the data artifact, stamps the build id, and deploys to GitHub Pages, and
   MUST rebuild when relevant issue events occur.
+- **FR-012**: When a bean-review issue is opened or edited, the system MUST
+  validate its body against the review schema (reusing the build's parse +
+  sanitize logic) and comment the result on the issue (success with any tidy-up
+  warnings, or the list of required fixes).
+- **FR-013**: When a valid bean-review issue was submitted by the repository
+  owner, the system MUST publish it automatically by adding the `published` label
+  and closing it (which triggers the deploy pipeline).
 
 ### Key Entities
 

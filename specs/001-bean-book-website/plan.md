@@ -85,16 +85,21 @@ scripts/
 ├── lib/
 │   ├── parse-issue.js   # issue-form body -> raw review (pure)
 │   ├── sanitize.js      # validation/sanitization (pure)
-│   └── aggregate.js     # reviews -> beans (pure)
+│   ├── aggregate.js     # reviews -> beans (pure)
+│   └── validate.js      # schema validation + comment builder (pure)
 ├── build-data.js        # fetch published issues -> data/beans.json
+├── validate-issue.js    # validate the current issue event -> comment + output
 └── serve.js             # zero-dep local dev server
 icons/                   # SVG + PNG PWA icons
 tests/
 ├── parse-issue.test.js
 ├── sanitize.test.js
 ├── aggregate.test.js
+├── validate.test.js
 └── a11y.test.js
-.github/workflows/ci-cd.yml   # single combined test+build+deploy pipeline
+.github/workflows/
+├── ci-cd.yml            # single combined test+build+deploy pipeline
+└── validate-review.yml  # validate issue, comment, auto-publish owner reviews
 ```
 
 **Structure Decision**: Single static project. Pure, testable logic lives in
@@ -117,6 +122,10 @@ the generated JSON, keeping untrusted-data handling entirely at build time.
 - **Deploy/PWA**: workflow stamps `BUILD_ID=${GITHUB_SHA::12}-<timestamp>` into
   `service-worker.js` and `src/main.js`, assembles `_site`, uploads the Pages
   artifact, and deploys. Rebuild triggers include `issues` events.
+- **Validation/auto-publish**: `validate-review.yml` runs on issue opened/edited,
+  reusing `validate.js` (parse + sanitize) so "valid" guarantees a clean build;
+  it comments the result and, for a valid owner submission, adds `published` +
+  closes the issue — which in turn triggers the deploy pipeline.
 
 ## Complexity Tracking
 
