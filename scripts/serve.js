@@ -6,7 +6,7 @@
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { dirname, join, normalize, extname } from 'node:path';
+import { dirname, join, normalize, extname, sep } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -29,9 +29,10 @@ const server = createServer(async (req, res) => {
     let pathname = decodeURIComponent(url.pathname);
     if (pathname === '/') pathname = '/index.html';
 
-    // Prevent path traversal.
+    // Prevent path traversal: filePath must be ROOT itself or strictly inside
+    // it (guard against sibling dirs like `<root>-secret` matching a prefix).
     let filePath = normalize(join(ROOT, pathname));
-    if (!filePath.startsWith(ROOT)) {
+    if (filePath !== ROOT && !filePath.startsWith(ROOT + sep)) {
       res.writeHead(403).end('Forbidden');
       return;
     }
