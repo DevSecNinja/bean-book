@@ -88,6 +88,21 @@ body:
       required: true
 
   - type: dropdown
+    id: roast_level
+    attributes:
+      label: Roast level
+      description: How light or dark the beans were roasted.
+      options:
+        - Light
+        - Medium-Light
+        - Medium
+        - Medium-Dark
+        - Dark
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
     id: blend
     attributes:
       label: Single origin or blend?
