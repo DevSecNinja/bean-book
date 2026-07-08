@@ -175,8 +175,11 @@ body:
     id: origin
     attributes:
       label: Origin
-      description: Country and, if known, region / farm / producer.
-      placeholder: e.g. Ethiopia, Guji – Shakiso, Layo Taraga
+      description: >
+        Country of origin. For a blend, list multiple countries separated by a
+        comma and a space (e.g. Guatemala, Honduras, Brazil). For a single
+        origin you can add region / farm / producer after the country.
+      placeholder: e.g. Guatemala, Honduras, Brazil  —  or  —  Ethiopia Guji, Shakiso, Layo Taraga
     validations:
       required: false
 
