@@ -1,0 +1,28 @@
+---
+name: Label Sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/labels.yaml
+      - .github/labels-base.yaml
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  label-sync:
+    uses: DevSecNinja/.github/.github/workflows/label-sync.yml@27fd66740c629ea38380dcd3bf93e7bc74c54247 # v1.9.0
+    permissions:
+      contents: read
+      issues: write
+    with:
+      # This repo has no config-synced labels-base.yaml yet, so keep existing
+      # (e.g. default) labels rather than pruning. Flip to true once config-sync
+      # provides the shared base label set.
+      delete-other-labels: false
