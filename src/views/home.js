@@ -1,7 +1,7 @@
 /** Home view: searchable, filterable gallery of beans. */
 
 import { el, clear } from '../components.js';
-import { starBar, formatRating } from '../format.js';
+import { starBar, formatRating, formatValuePer100g } from '../format.js';
 import { roasters } from '../data.js';
 
 function beanCard(bean) {
@@ -29,6 +29,9 @@ function beanCard(bean) {
       : null,
     el('div', { class: 'card-foot' },
       el('span', { class: 'muted', text: `${bean.reviewCount} review${bean.reviewCount === 1 ? '' : 's'}` }),
+      bean.valuePer100g
+        ? el('span', { class: 'muted value-hint', text: `from ${formatValuePer100g(bean.valuePer100g)}` })
+        : null,
     ),
   );
 }

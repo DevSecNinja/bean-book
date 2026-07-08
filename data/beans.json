@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T08:56:24.054Z",
+  "generatedAt": "2026-07-08T10:11:05.417Z",
   "buildId": "__BUILD_ID__",
   "beanCount": 2,
   "reviewCount": 2,
@@ -11,6 +11,13 @@
       "roaster": "Wakuli",
       "averageRating": 3.5,
       "reviewCount": 1,
+      "valuePer100g": {
+        "value": 5.73,
+        "currency": {
+          "code": "EUR",
+          "symbol": "€"
+        }
+      },
       "facts": {
         "roastType": "Omni (Filter & Espresso)",
         "roastLevel": "Medium",
@@ -26,13 +33,7 @@
           "Brazil"
         ],
         "website": "https://www.wakuli.com/products/parade-wakuli-blend",
-        "roastDate": null,
-        "currency": {
-          "code": "EUR",
-          "symbol": "€"
-        },
-        "cost": 12.9,
-        "weightGrams": 225
+        "roastDate": null
       },
       "flavours": [
         "Berry"
@@ -87,6 +88,13 @@
       "roaster": "Simon Lévelt",
       "averageRating": 2.5,
       "reviewCount": 1,
+      "valuePer100g": {
+        "value": 4.6,
+        "currency": {
+          "code": "EUR",
+          "symbol": "€"
+        }
+      },
       "facts": {
         "roastType": "Filter",
         "roastLevel": "Light",
@@ -100,13 +108,7 @@
           "Ethiopia"
         ],
         "website": "https://www.simonlevelt.nl/nl/guji-highlands/17524-M.html",
-        "roastDate": null,
-        "currency": {
-          "code": "EUR",
-          "symbol": "€"
-        },
-        "cost": 11.5,
-        "weightGrams": 250
+        "roastDate": null
       },
       "flavours": [
         "Fruity (stone / tropical)"

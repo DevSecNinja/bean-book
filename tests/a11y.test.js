@@ -16,13 +16,14 @@ function sampleBean(overrides = {}) {
       roastType: 'Filter', roastLevel: 'Light', blend: 'Blend', decaf: false,
       organic: true, species: 'Arabica', process: 'Natural', variety: null,
       origins: ['Ethiopia'], website: 'https://example.com/bean', roastDate: null,
-      currency: { code: 'EUR', symbol: '€' }, cost: 12.5, weightGrams: 250,
     },
+    valuePer100g: { value: 5, currency: { code: 'EUR', symbol: '€' } },
     flavours: ['Berry', 'Citrus'],
     reviews: [{
       id: 1, url: 'https://github.com/o/r/issues/1', submittedAt: '2026-01-01T00:00:00Z',
       author: { login: 'octocat', avatarUrl: 'https://avatars.githubusercontent.com/u/1', profileUrl: 'https://github.com/octocat' },
       name: 'Test Bean', roaster: 'Test Roaster', rating: 3.5,
+      currency: { code: 'EUR', symbol: '€' }, cost: 12.5, weightGrams: 250,
       flavours: ['Berry'], brewMethod: 'V60 / Pour-over', notes: 'Lovely cup', buyAgain: true,
     }],
     ...overrides,
@@ -66,6 +67,16 @@ describe('bean view', () => {
     expect(main.textContent).toContain('@octocat');
     expect(main.textContent).toContain('Lovely cup');
     expect(main.querySelector('.avatar')).toBeTruthy();
+  });
+
+  it('shows price & weight on the review, and value-per-100g on the bean', () => {
+    renderBean(main, sampleBean());
+    const review = main.querySelector('.review');
+    expect(review.textContent).toContain('€12.50');
+    expect(review.textContent).toContain('250 g');
+    // Derived value shown in the facts panel, not the raw price.
+    expect(main.querySelector('.facts').textContent).toContain('€5.00 / 100g');
+    expect(main.querySelector('.facts').textContent).not.toContain('€12.50');
   });
 
   it('never renders untrusted notes as markup (XSS-safe)', () => {

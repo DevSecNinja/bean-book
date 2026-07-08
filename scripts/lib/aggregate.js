@@ -40,11 +40,12 @@ function byRecency(a, b) {
   return (b.id ?? 0) - (a.id ?? 0);
 }
 
-// Bean-level facts: take the most-recent non-empty value across reviews.
+// Bean-level facts: intrinsic properties of the bean, taken from the most-recent
+// non-empty value across reviews. Purchase-specific data (cost, weight,
+// currency) deliberately lives on each Review, not here.
 const FACT_FIELDS = [
   'roastType', 'roastLevel', 'blend', 'decaf', 'organic', 'species',
-  'process', 'variety', 'origins', 'website', 'roastDate', 'currency', 'cost',
-  'weightGrams',
+  'process', 'variety', 'origins', 'website', 'roastDate',
 ];
 
 function isEmpty(v) {
@@ -68,6 +69,22 @@ function mergeFacts(sortedReviews) {
 
 function round2(n) {
   return Math.round(n * 100) / 100;
+}
+
+/**
+ * Cheapest observed price per 100g across a bean's reviews.
+ * Returns { value, currency } or null. Currencies aren't converted; we report
+ * the lowest per-100g figure together with the currency it was paid in.
+ */
+function bestValuePer100g(reviews) {
+  let best = null;
+  for (const r of reviews) {
+    if (r.cost != null && r.weightGrams > 0) {
+      const per = (r.cost / r.weightGrams) * 100;
+      if (best === null || per < best.value) best = { value: round2(per), currency: r.currency };
+    }
+  }
+  return best;
 }
 
 /**
@@ -114,6 +131,7 @@ export function aggregate(reviews) {
       roaster: primary.roaster,
       averageRating,
       reviewCount: sorted.length,
+      valuePer100g: bestValuePer100g(sorted),
       facts: mergeFacts(sorted),
       flavours,
       reviews: sorted,

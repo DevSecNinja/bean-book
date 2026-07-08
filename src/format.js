@@ -41,6 +41,13 @@ export function formatWeight(g) {
   return g == null ? null : `${g} g`;
 }
 
+/** "€4.60 / 100g" from a { value, currency } object. */
+export function formatValuePer100g(v) {
+  if (!v || v.value == null) return null;
+  const price = formatCost(v.value, v.currency);
+  return price == null ? null : `${price} / 100g`;
+}
+
 /** Relative-ish date, e.g. "8 Jul 2026". */
 export function formatDate(iso) {
   if (!iso) return null;

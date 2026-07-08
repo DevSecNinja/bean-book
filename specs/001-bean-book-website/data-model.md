@@ -44,12 +44,17 @@ Aggregation of Reviews sharing a normalized identity.
 | `roaster` | string | Display roaster |
 | `averageRating` | number | Mean of review ratings, 2 dp |
 | `reviewCount` | number | Count of reviews |
-| `facts` | object | Merged shared facts (roastType, roastLevel, blend, decaf, organic, species, process, origins, website, …) |
+| `valuePer100g` | `{ value, currency }` \| null | Cheapest observed price per 100g across reviews (currency of that review; not converted) |
+| `facts` | object | Merged **intrinsic** facts (roastType, roastLevel, blend, decaf, organic, species, process, origins, website, roastDate). Purchase data (cost/weight/currency) is **not** here — it lives on each Review |
 | `flavours` | string[] | Union of review flavours (capped) |
 | `reviews` | Review[] | Newest first |
 
 **Normalization**: lowercase → strip diacritics → trim → collapse internal
 whitespace. Used only for the identity key, not for display.
+
+**Purchase vs intrinsic data**: `cost`, `weightGrams` and `currency` describe a
+specific purchase, so they stay on the Review (shown on each review card). The
+Bean only exposes the derived `valuePer100g` for comparison.
 
 ## beans.json (build artifact)
 

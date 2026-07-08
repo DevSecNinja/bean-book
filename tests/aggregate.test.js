@@ -88,4 +88,25 @@ describe('aggregate', () => {
     ]);
     expect(beans[0].flavours.sort()).toEqual(['Berry', 'Citrus']);
   });
+
+  it('does not put purchase data (cost/weight/currency) in bean facts', () => {
+    const beans = aggregate([review({ id: 1, cost: 12, weightGrams: 250 })]);
+    expect(beans[0].facts).not.toHaveProperty('cost');
+    expect(beans[0].facts).not.toHaveProperty('weightGrams');
+    expect(beans[0].facts).not.toHaveProperty('currency');
+  });
+
+  it('computes the cheapest value per 100g across reviews', () => {
+    const eur = { code: 'EUR', symbol: '€' };
+    const beans = aggregate([
+      review({ id: 1, cost: 12, weightGrams: 250, currency: eur }), // 4.80 / 100g
+      review({ id: 2, cost: 10, weightGrams: 250, currency: eur }), // 4.00 / 100g
+    ]);
+    expect(beans[0].valuePer100g).toEqual({ value: 4, currency: eur });
+  });
+
+  it('has a null value per 100g when no review has cost + weight', () => {
+    const beans = aggregate([review({ id: 1, cost: null, weightGrams: null })]);
+    expect(beans[0].valuePer100g).toBeNull();
+  });
 });

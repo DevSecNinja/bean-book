@@ -2,7 +2,8 @@
 
 import { el, clear, safeUrl } from '../components.js';
 import {
-  starBar, formatRating, formatCost, formatWeight, formatDate, initials,
+  starBar, formatRating, formatCost, formatWeight, formatValuePer100g,
+  formatDate, initials,
 } from '../format.js';
 
 function factRow(label, value) {
@@ -27,6 +28,10 @@ function avatar(author) {
 function reviewCard(review) {
   const author = review.author ?? {};
   const meta = [];
+  const price = formatCost(review.cost, review.currency);
+  if (price) meta.push(price);
+  const weight = formatWeight(review.weightGrams);
+  if (weight) meta.push(weight);
   if (review.brewMethod) meta.push(review.brewMethod);
   if (review.buyAgain) meta.push('Would buy again');
   const date = formatDate(review.submittedAt);
@@ -87,8 +92,7 @@ export function renderBean(root, bean) {
     factRow('Decaf', facts.decaf ? 'Yes' : null),
     factRow('Organic', facts.organic ? 'Yes' : null),
     factRow('Roast date', facts.roastDate),
-    factRow('Cost', formatCost(facts.cost, facts.currency)),
-    factRow('Weight', formatWeight(facts.weightGrams)),
+    factRow('Value', bean.valuePer100g ? `from ${formatValuePer100g(bean.valuePer100g)}` : null),
   );
 
   const flavours = bean.flavours && bean.flavours.length
