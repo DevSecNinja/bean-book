@@ -147,6 +147,14 @@ body:
         - label: This is a decaf coffee
           required: false
 
+  - type: checkboxes
+    id: organic
+    attributes:
+      label: Organic
+      options:
+        - label: This is a certified organic coffee
+          required: false
+
   - type: input
     id: roast_date
     attributes:
