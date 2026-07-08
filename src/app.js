@@ -48,9 +48,16 @@ function header() {
 
 function footer(data, buildId) {
   const shortHash = (buildId || '').split('-')[0] || 'dev';
+  const isRealHash = /^[0-9a-f]{7,40}$/i.test(shortHash);
   const generated = data?.generatedAt
     ? new Date(data.generatedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
+  const build = isRealHash
+    ? el('a', {
+        class: 'build', href: `${REPO_URL}/commit/${shortHash}`,
+        target: '_blank', rel: 'noopener', title: 'View this build’s commit', text: shortHash,
+      })
+    : el('code', { class: 'build', title: 'Build commit', text: shortHash });
   return el('footer', { class: 'site-footer' },
     el('p', {},
       el('a', { href: REPO_URL, target: '_blank', rel: 'noopener', text: 'Bean Book on GitHub' }),
@@ -58,7 +65,7 @@ function footer(data, buildId) {
     ),
     el('p', { class: 'muted small' },
       generated ? `Data updated ${generated} · ` : '',
-      el('code', { class: 'build', title: 'Build commit', text: shortHash }),
+      build,
     ),
   );
 }

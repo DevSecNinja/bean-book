@@ -16,6 +16,7 @@
   --accent: #b5651d;         /* roasted amber */
   --accent-strong: #8a4a12;
   --accent-contrast: #ffffff;
+  --link: #8a4a12;           /* readable link on light bg */
   --star: #e0a326;
   --star-empty: #d9ccbe;
   --shadow: 0 1px 2px rgba(43, 32, 24, 0.06), 0 8px 24px rgba(43, 32, 24, 0.08);
@@ -35,6 +36,7 @@
   --accent: #e0994f;
   --accent-strong: #f0b878;
   --accent-contrast: #241b15;
+  --link: #e0994f;           /* brighter link on dark bg */
   --star: #f0b64a;
   --star-empty: #46372c;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -51,6 +53,7 @@
     --accent: #e0994f;
     --accent-strong: #f0b878;
     --accent-contrast: #241b15;
+    --link: #e0994f;
     --star: #f0b64a;
     --star-empty: #46372c;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -70,9 +73,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--accent-strong); }
-:root[data-theme="dark"] a:not(.btn):not(.brand),
-:root[data-theme="auto"] a:not(.btn):not(.brand) { color: var(--accent); }
+a { color: var(--link); }
 
 code, .build { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
@@ -121,7 +122,11 @@ code, .build { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   border-radius: 6px;
   padding: 0.05rem 0.4rem;
   font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
+a.build:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -231,11 +236,9 @@ select {
   font-variant-numeric: tabular-nums;
   border-radius: 999px;
   background: color-mix(in srgb, var(--accent) 16%, var(--surface));
-  color: var(--accent-strong);
+  color: var(--link);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
 }
-:root[data-theme="dark"] .rating-badge,
-:root[data-theme="auto"] .rating-badge { color: var(--accent); }
 .rating-badge.big { font-size: 1.5rem; min-width: 3.4rem; padding: 0.3rem 0.7rem; }
 .rating-badge.small { min-width: 2.2rem; font-size: 0.85rem; }
 
@@ -261,10 +264,8 @@ select {
   border-radius: 999px;
   background: color-mix(in srgb, var(--accent) 12%, var(--surface));
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-  color: var(--accent-strong);
+  color: var(--link);
 }
-:root[data-theme="dark"] .tag,
-:root[data-theme="auto"] .tag { color: var(--accent); }
 
 .muted { color: var(--text-muted); }
 .small { font-size: 0.85rem; }
