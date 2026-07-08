@@ -199,6 +199,22 @@ body:
     validations:
       required: false
 
+  - type: dropdown
+    id: species
+    attributes:
+      label: Species
+      description: The coffee species.
+      options:
+        - Arabica
+        - Robusta
+        - Arabica / Robusta blend
+        - Liberica
+        - Excelsa
+        - Other
+        - Unknown
+    validations:
+      required: false
+
   - type: input
     id: variety
     attributes:
