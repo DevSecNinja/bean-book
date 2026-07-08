@@ -84,6 +84,9 @@ code, .build { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 1.25rem clamp(1rem, 4vw, 2rem) 3rem;
+  /* Respect iOS notch / Dynamic Island in landscape (installed PWA). */
+  padding-left: max(clamp(1rem, 4vw, 2rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1rem, 4vw, 2rem), env(safe-area-inset-right));
   flex: 1;
   outline: none;
 }
@@ -98,6 +101,12 @@ code, .build { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   justify-content: space-between;
   gap: 1rem;
   padding: 0.75rem clamp(1rem, 4vw, 2rem);
+  /* When installed on iOS the status bar / Dynamic Island overlays the web
+     view (viewport-fit=cover + translucent status bar), so pad by the safe
+     area to keep the header clear of the time, notch and battery icons. */
+  padding-top: calc(0.75rem + env(safe-area-inset-top));
+  padding-left: max(clamp(1rem, 4vw, 2rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1rem, 4vw, 2rem), env(safe-area-inset-right));
   background: color-mix(in srgb, var(--bg) 85%, transparent);
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid var(--border);
@@ -111,6 +120,7 @@ code, .build { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 1.5rem;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   text-align: center;
   color: var(--text-muted);
   font-size: 0.9rem;
