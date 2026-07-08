@@ -62,7 +62,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html styles.css manifest.webmanifest service-worker.js \
-            src data icons _site/
+            robots.txt sitemap.xml CNAME src data icons bean _site/
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'

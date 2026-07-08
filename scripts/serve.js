@@ -30,13 +30,18 @@ const server = createServer(async (req, res) => {
     if (pathname === '/') pathname = '/index.html';
 
     // Prevent path traversal.
-    const filePath = normalize(join(ROOT, pathname));
+    let filePath = normalize(join(ROOT, pathname));
     if (!filePath.startsWith(ROOT)) {
       res.writeHead(403).end('Forbidden');
       return;
     }
 
-    const info = await stat(filePath).catch(() => null);
+    // Directory-index resolution (mirrors GitHub Pages): /bean/x/ -> /bean/x/index.html
+    let info = await stat(filePath).catch(() => null);
+    if (info?.isDirectory()) {
+      filePath = join(filePath, 'index.html');
+      info = await stat(filePath).catch(() => null);
+    }
     if (!info || !info.isFile()) {
       res.writeHead(404).end('Not found');
       return;

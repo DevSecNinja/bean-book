@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-data.js",
+    "build": "node scripts/build-data.js && node scripts/build-site.js",
     "start": "node scripts/serve.js",
     "test": "vitest run",
     "test:watch": "vitest"

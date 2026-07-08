@@ -14,7 +14,7 @@ function beanCard(bean) {
     facts.organic ? 'Organic' : null,
   ].filter(Boolean);
 
-  return el('a', { class: 'card', href: `#/bean/${encodeURIComponent(bean.slug)}` },
+  return el('a', { class: 'card', href: `/bean/${encodeURIComponent(bean.slug)}/` },
     el('div', { class: 'card-top' },
       el('span', { class: 'rating-badge', text: formatRating(bean.averageRating) }),
       starBar(bean.averageRating, bean.reviewCount),

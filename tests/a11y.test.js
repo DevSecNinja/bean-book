@@ -52,7 +52,7 @@ describe('home view', () => {
     renderHome(main, data);
     expect(main.querySelectorAll('.card').length).toBe(1);
     expect(main.textContent).toContain('Test Bean');
-    expect(main.querySelector('a.card').getAttribute('href')).toContain('#/bean/');
+    expect(main.querySelector('a.card').getAttribute('href')).toContain('/bean/');
   });
 
   it('has no serious accessibility violations', async () => {

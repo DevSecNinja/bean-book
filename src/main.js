@@ -34,7 +34,7 @@ if ('serviceWorker' in navigator) {
     });
 
     navigator.serviceWorker
-      .register('./service-worker.js?v=__BUILD_ID__', { updateViaCache: 'none' })
+      .register('/service-worker.js?v=__BUILD_ID__', { scope: '/', updateViaCache: 'none' })
       .then((reg) => {
         reg.addEventListener('updatefound', () => {
           const newWorker = reg.installing;

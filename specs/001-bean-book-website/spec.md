@@ -157,6 +157,11 @@ Confirm an unpublished issue does not appear in the built data.
 - **FR-013**: When a valid bean-review issue was submitted by the repository
   owner, the system MUST publish it automatically by adding the `published` label
   and closing it (which triggers the deploy pipeline).
+- **FR-014**: Each bean MUST have its own crawlable, indexable URL
+  (`/bean/<slug>/`) served as a prerendered page with a unique title, meta
+  description, canonical link, Open Graph/Twitter tags and JSON-LD
+  (Product + AggregateRating + Review). The build MUST emit `sitemap.xml`,
+  `robots.txt` and a social preview image.
 
 ### Key Entities
 

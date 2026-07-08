@@ -87,3 +87,17 @@ independently testable slice.
 
 All tasks complete. Site is deployed to GitHub Pages and validated end-to-end
 (41 vitest tests passing; workflows lint-clean).
+
+## Phase 9: SEO & custom domain (added post-plan)
+
+- [x] T080 Add `CNAME` (coffee.ravensberg.org) and copy it into the deploy
+  artifact so the custom domain persists across deploys.
+- [x] T081 SEO head in `index.html`: canonical, robots, Open Graph, Twitter card,
+  JSON-LD WebSite; generate a 1200×630 `icons/og-image.png`; add `robots.txt`.
+- [x] T082 Switch to real path-based routing (History API + link interception)
+  so bean pages are crawlable URLs; absolute asset paths; SW scope `/`.
+- [x] T083 `scripts/build-site.js` — prerender `/bean/<slug>/index.html` (unique
+  title/description/canonical/OG + JSON-LD Product/AggregateRating/Review +
+  crawlable content) and generate `sitemap.xml`.
+- [x] T084 Dynamic per-route `<title>`/meta/canonical updates on client nav;
+  `parseRoute` tests; dev server directory-index resolution.

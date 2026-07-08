@@ -2,10 +2,11 @@
 
 import { el, clear } from './components.js';
 import { loadData, findBean } from './data.js';
-import { parseHash, onRouteChange } from './router.js';
+import { parseRoute, onRouteChange, interceptLinks } from './router.js';
 import { renderHome } from './views/home.js';
 import { renderBean } from './views/bean.js';
 
+const SITE_URL = 'https://coffee.ravensberg.org';
 const REPO_URL = 'https://github.com/DevSecNinja/bean-book';
 const NEW_REVIEW_URL = `${REPO_URL}/issues/new?template=bean-review.yml`;
 
@@ -35,7 +36,7 @@ function themeToggle() {
 
 function header() {
   return el('header', { class: 'site-header' },
-    el('a', { class: 'brand', href: '#/' },
+    el('a', { class: 'brand', href: '/' },
       el('span', { class: 'brand-mark', 'aria-hidden': 'true', text: '☕' }),
       el('span', { class: 'brand-name', text: 'Bean Book' }),
     ),
@@ -44,6 +45,51 @@ function header() {
       themeToggle(),
     ),
   );
+}
+
+/** Keep <title> and social/canonical meta in sync during client navigation. */
+function setMeta(name, attr, value) {
+  let tag = document.head.querySelector(`meta[${attr}="${name}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute(attr, name);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', value);
+}
+
+function updateHead(route, bean) {
+  const path = route.name === 'bean' && bean ? `/bean/${bean.slug}/` : '/';
+  const url = `${SITE_URL}${path}`;
+  let title;
+  let description;
+  if (route.name === 'bean' && bean) {
+    const facts = bean.facts ?? {};
+    const bits = [
+      `Rated ${bean.averageRating}/5 from ${bean.reviewCount} review${bean.reviewCount === 1 ? '' : 's'}`,
+      facts.origins?.length ? facts.origins.join(', ') : null,
+      bean.flavours?.length ? bean.flavours.join(', ') : null,
+    ].filter(Boolean);
+    title = `${bean.name} — ${bean.roaster} | Bean Book`;
+    description = `${bean.name} by ${bean.roaster}. ${bits.join('. ')}.`;
+  } else {
+    title = 'Bean Book — Coffee bean reviews';
+    description = 'A hand-kept log of coffee beans worth remembering — ratings, roasters and tasting notes. Untappd, but for coffee.';
+  }
+  document.title = title;
+  setMeta('description', 'name', description);
+  setMeta('og:title', 'property', title);
+  setMeta('og:description', 'property', description);
+  setMeta('og:url', 'property', url);
+  setMeta('twitter:title', 'name', title);
+  setMeta('twitter:description', 'name', description);
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute('href', url);
 }
 
 function footer(data, buildId) {
@@ -91,24 +137,27 @@ export async function initApp(root, { buildId } = {}) {
   root.append(header(), content, footer(data, buildId));
 
   const render = (route) => {
+    let bean = null;
     if (route.name === 'bean') {
-      const bean = findBean(data, route.slug);
+      bean = findBean(data, route.slug);
       if (bean) {
         renderBean(content, bean);
       } else {
         clear(content);
         content.append(el('div', { class: 'empty' },
           el('h1', { text: 'Bean not found' }),
-          el('a', { class: 'btn', href: '#/', text: '← Back to all beans' }),
+          el('a', { class: 'btn', href: '/', text: '← Back to all beans' }),
         ));
       }
     } else {
       renderHome(content, data);
     }
+    updateHead(route, bean);
     content.focus({ preventScroll: true });
     window.scrollTo({ top: 0 });
   };
 
   onRouteChange(render);
-  render(parseHash());
+  interceptLinks();
+  render(parseRoute());
 }

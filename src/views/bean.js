@@ -67,7 +67,7 @@ export function renderBean(root, bean) {
   clear(root);
   const facts = bean.facts ?? {};
 
-  const back = el('a', { class: 'back', href: '#/', text: '← All beans' });
+  const back = el('a', { class: 'back', href: '/', text: '← All beans' });
 
   const header = el('section', { class: 'bean-header' },
     el('div', { class: 'bean-title' },

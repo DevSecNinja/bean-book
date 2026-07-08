@@ -9,7 +9,7 @@ let cache = null;
  */
 export async function loadData() {
   if (cache) return cache;
-  const res = await fetch('./data/beans.json', { cache: 'no-cache' });
+  const res = await fetch('/data/beans.json', { cache: 'no-cache' });
   if (!res.ok) throw new Error(`Failed to load data: ${res.status}`);
   const data = await res.json();
   if (!data || !Array.isArray(data.beans)) {
