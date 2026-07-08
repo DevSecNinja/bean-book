@@ -1,0 +1,52 @@
+name: Validate bean review
+
+# When a bean-review issue is opened or edited, check its body against the
+# review schema, comment the result, and — if the submitter is the repo owner
+# and the review is valid — publish it (add `published` + close).
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: validate-issue-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate & maybe publish
+    # Only bean-review submissions; skip anything already published.
+    if: >-
+      contains(github.event.issue.labels.*.name, 'bean-review') &&
+      !contains(github.event.issue.labels.*.name, 'published')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NUMBER: ${{ github.event.issue.number }}
+      REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          # renovate: datasource=node-version depName=node
+          node-version: "24"
+
+      - name: Validate issue body against the review schema
+        id: validate
+        run: node scripts/validate-issue.js
+
+      - name: Comment the validation result
+        run: gh issue comment "$NUMBER" --repo "$REPO" --body-file .issue-comment.md
+
+      - name: Auto-publish the owner's valid review
+        if: >-
+          steps.validate.outputs.valid == 'true' &&
+          github.event.issue.author_association == 'OWNER' &&
+          github.event.issue.state == 'open'
+        run: |
+          gh issue edit "$NUMBER" --repo "$REPO" --add-label published
+          gh issue close "$NUMBER" --repo "$REPO" --reason completed
