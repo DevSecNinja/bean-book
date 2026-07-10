@@ -127,7 +127,8 @@ Confirm an unpublished issue does not appear in the built data.
 - **FR-002**: The pipeline MUST parse each issue's form body into structured fields
   matching the issue template (name, roaster, roast type, roast level, blend,
   rating, decaf, organic, roast date, origin, process, species, variety, currency,
-  cost, weight, flavour profiles, brew method, website, notes, buy-again).
+  cost, weight, flavour profiles, brew method, brew ratio, website, notes,
+  buy-again).
 - **FR-003**: The pipeline MUST validate and sanitize every field: enums checked
   against allowed values, rating restricted to 1.00–5.00 in 0.25 steps, numbers
   coerced/validated, URLs restricted to `http(s)`, text stripped of control

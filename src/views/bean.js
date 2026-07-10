@@ -33,6 +33,7 @@ function reviewCard(review) {
   const weight = formatWeight(review.weightGrams);
   if (weight) meta.push(weight);
   if (review.brewMethod) meta.push(review.brewMethod);
+  if (review.ratio) meta.push(`Ratio ${review.ratio}`);
   if (review.buyAgain) meta.push('Would buy again');
   const date = formatDate(review.submittedAt);
 

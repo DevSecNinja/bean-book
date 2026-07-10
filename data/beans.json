@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T11:22:20.654Z",
+  "generatedAt": "2026-07-10T06:34:56.165Z",
   "buildId": "__BUILD_ID__",
   "beanCount": 2,
   "reviewCount": 2,
@@ -75,6 +75,7 @@
             "Berry"
           ],
           "brewMethod": "V60 / Pour-over",
+          "ratio": "1:16",
           "website": "https://www.wakuli.com/products/parade-wakuli-blend",
           "notes": "Very tasty with 1:16.0",
           "buyAgain": true
@@ -148,6 +149,7 @@
             "Fruity (stone / tropical)"
           ],
           "brewMethod": "V60 / Pour-over",
+          "ratio": "1:16.7",
           "website": "https://www.simonlevelt.nl/nl/guji-highlands/17524-M.html",
           "notes": "Tried 1:16.7 but flavor didn't really pop-out yet. Can definitely taste a light grapefruit taste.",
           "buyAgain": false

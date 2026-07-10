@@ -42,6 +42,7 @@ export function validateIssue(issue) {
     if (raw.process && !review.process) warnings.push('**Process** wasn’t recognized and will be omitted.');
     if (raw.species && !review.species) warnings.push('**Species** wasn’t recognized and will be omitted.');
     if (raw.brewMethod && !review.brewMethod) warnings.push('**How did you brew it?** wasn’t recognized and will be omitted.');
+    if (raw.ratio && !review.ratio) warnings.push('**Brew ratio** couldn’t be read as a `1:N` ratio; it will be omitted.');
     if (raw.website && !review.website) warnings.push('**Bean website** must be an `http(s)` URL; it will be omitted.');
     if (raw.cost && review.cost == null) warnings.push('**Cost** couldn’t be read as a number; it will be omitted.');
     if (raw.weight && review.weightGrams == null) warnings.push('**Weight (grams)** couldn’t be read as a number; it will be omitted.');

@@ -32,6 +32,7 @@ function raw(overrides = {}) {
     weight: '250',
     flavours: ['Berry', 'Citrus'],
     brewMethod: 'V60 / Pour-over',
+    ratio: '1:16',
     website: 'https://example.com/bean',
     notes: 'Nice and juicy',
     buyAgain: true,
@@ -145,5 +146,14 @@ describe('sanitizeReview', () => {
   it('accepts a valid roast date and rejects a malformed one', () => {
     expect(sanitizeReview(raw({ roastDate: '2026-06-15' })).roastDate).toBe('2026-06-15');
     expect(sanitizeReview(raw({ roastDate: 'yesterday' })).roastDate).toBeNull();
+  });
+
+  it('normalizes brew ratios and rejects nonsense', () => {
+    expect(sanitizeReview(raw({ ratio: '1:16' })).ratio).toBe('1:16');
+    expect(sanitizeReview(raw({ ratio: '1 : 15.5' })).ratio).toBe('1:15.5');
+    expect(sanitizeReview(raw({ ratio: '1/2' })).ratio).toBe('1:2');
+    expect(sanitizeReview(raw({ ratio: '16' })).ratio).toBe('1:16');
+    expect(sanitizeReview(raw({ ratio: 'a lot of water' })).ratio).toBeNull();
+    expect(sanitizeReview(raw({ ratio: null })).ratio).toBeNull();
   });
 });

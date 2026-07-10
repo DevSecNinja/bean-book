@@ -47,7 +47,7 @@ function reviewHtml(r) {
   const author = r.author ?? {};
   const meta = [
     money(r.cost, r.currency), r.weightGrams != null ? `${r.weightGrams} g` : null,
-    r.brewMethod, r.buyAgain ? 'Would buy again' : null,
+    r.brewMethod, r.ratio ? `Ratio ${r.ratio}` : null, r.buyAgain ? 'Would buy again' : null,
   ].filter(Boolean).map(esc).join(' · ');
   const who = author.login
     ? `<a class="author-name" href="${esc(author.profileUrl || `https://github.com/${author.login}`)}" target="_blank" rel="noopener">@${esc(author.login)}</a>`

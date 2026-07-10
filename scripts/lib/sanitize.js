@@ -113,6 +113,34 @@ function cleanCurrency(value) {
   return { code: 'EUR', symbol: CURRENCIES.EUR };
 }
 
+/**
+ * Normalize a brew ratio into a `1:N` style string (coffee:water).
+ * Accepts "1:16", "1 : 16", "1/16", "1-16", or a bare "16" (read as "1:16").
+ * Each side must be a positive number up to 1000. Returns null when unusable.
+ */
+function cleanRatio(value) {
+  const cleaned = cleanText(value, MAX_SHORT);
+  if (cleaned == null) return null;
+  const toNum = (s) => Number(s.replace(',', '.'));
+  const fmt = (n) => (Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100));
+  const inRange = (n) => Number.isFinite(n) && n > 0 && n <= 1000;
+
+  let a;
+  let b;
+  const pair = /(\d+(?:[.,]\d+)?)\s*[:/x\-]\s*(\d+(?:[.,]\d+)?)/i.exec(cleaned);
+  if (pair) {
+    a = toNum(pair[1]);
+    b = toNum(pair[2]);
+  } else {
+    const single = /(\d+(?:[.,]\d+)?)/.exec(cleaned);
+    if (!single) return null;
+    a = 1;
+    b = toNum(single[1]);
+  }
+  if (!inRange(a) || !inRange(b)) return null;
+  return `${fmt(a)}:${fmt(b)}`;
+}
+
 function cleanAuthor(author) {
   const login = typeof author?.login === 'string'
     && /^[a-zA-Z\d](?:[a-zA-Z\d]|-(?=[a-zA-Z\d])){0,38}$/.test(author.login)
@@ -224,6 +252,7 @@ export function sanitizeReview(raw) {
     weightGrams,
     flavours,
     brewMethod: matchEnum(raw.brewMethod, BREW_METHODS),
+    ratio: cleanRatio(raw.ratio),
     website: cleanUrl(raw.website),
     notes: cleanText(raw.notes, MAX_TEXT),
     buyAgain: raw.buyAgain === true,

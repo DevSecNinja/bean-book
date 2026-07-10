@@ -28,6 +28,7 @@ One published issue → one Review.
 | `weightGrams` | number \| null | Parsed int > 0 |
 | `flavours` | string[] | Checked flavour options (max 10, from allowed set) |
 | `brewMethod` | enum \| null | Espresso/V60/… |
+| `ratio` | string \| null | Normalized brew ratio `1:N` (coffee:water) |
 | `website` | string \| null | `http(s)` only |
 | `notes` | string \| null | Free text, sanitized |
 | `buyAgain` | boolean | Checkbox |

@@ -127,6 +127,7 @@ export function parseIssue(issue) {
     weight: readText(sections, 'Weight (grams)'),
     flavours: readCheckedList(sections, 'Flavour profiles'),
     brewMethod: readText(sections, 'How did you brew it?'),
+    ratio: readText(sections, 'Brew ratio'),
     website: readText(sections, 'Bean website'),
     notes: readText(sections, 'Review notes'),
     buyAgain: readChecked(sections, 'Would you buy it again?'),
